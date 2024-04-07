@@ -1,7 +1,9 @@
 package com.example.springboot_rest.entity;
+import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+//import javax.persistence.*;
+
 
 @Entity
 @Table(name="employees")

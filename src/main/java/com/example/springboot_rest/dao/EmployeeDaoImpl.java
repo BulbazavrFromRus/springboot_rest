@@ -1,22 +1,21 @@
 package com.example.springboot_rest.dao;
 
 import com.example.springboot_rest.entity.Employee;
+import jakarta.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
+
+import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDAO{
 
     //@Autowired(required = true)
-    @PersistenceContext(unitName = "my_db")
+    @PersistenceContext
     private EntityManager entityManager;
 
 
