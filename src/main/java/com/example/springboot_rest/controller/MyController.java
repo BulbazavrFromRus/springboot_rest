@@ -2,6 +2,7 @@ package com.example.springboot_rest.controller;
 import com.example.springboot_rest.entity.Employee;
 import com.example.springboot_rest.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,12 +33,14 @@ public class MyController {
     }
 
     @PutMapping("/employees")
+    @Transactional
     public Employee updateEmployee(@RequestBody Employee employee) {
         employeeService.saveEmployee(employee);
         return employee;
     }
 
     @DeleteMapping("/employees/{id}")
+    @Transactional
     public String deleteEmployee(@PathVariable int id) {
         employeeService.deleteEmployee(id);
         return "Employee with ID = " +id + " was deleted";
