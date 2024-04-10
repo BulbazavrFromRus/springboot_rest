@@ -47,5 +47,11 @@ public class MyController {
 
     }
 
+    @GetMapping("/employees/name/{name}")
+    public List<Employee> showEmployee(@PathVariable String name) {
+        List<Employee> employees = employeeService.findAllByName(name);
+        return employees;
+    }
+
 
 }
