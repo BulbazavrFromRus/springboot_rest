@@ -29,6 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
          employeeRepository.save(employee);
     }
 
+
     @Override
     public Employee getEmployee(int id) {
         Optional<Employee> employee = employeeRepository.findById(id);
@@ -36,10 +37,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee.orElse(null);
     }
 
+
     @Override
     public void deleteEmployee(int id) {
          employeeRepository.deleteById(id);
     }
+
 
     @Override
     public List<Employee> findAllByName(String firstName) {
