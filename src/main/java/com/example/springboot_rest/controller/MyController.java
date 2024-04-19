@@ -1,12 +1,15 @@
 package com.example.springboot_rest.controller;
 import com.example.springboot_rest.entity.Employee;
-import com.example.springboot_rest.service.EmployeeService;
+import com.example.springboot_rest.entity.Group;
+import com.example.springboot_rest.entity.Student;
+import com.example.springboot_rest.service.interfaces.EmployeeService;
+import com.example.springboot_rest.service.interfaces.GroupService;
+import com.example.springboot_rest.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -15,6 +18,14 @@ public class MyController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private GroupService groupService;
+
+    @Autowired
+    private StudentService studentService;
+
+
+    //EMPLOYEE
     @RequestMapping( value = "/employees")
     public List<Employee> showAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
@@ -54,4 +65,68 @@ public class MyController {
         return employeeList;
     }
 
+    //GROUP
+    @RequestMapping("/groups")
+    public List<Group> showAllGroups(){
+        List<Group> groupList = groupService.getAllGroups();
+        return groupList;
+    }
+
+    @GetMapping("/groups/{id}")
+    public Group getGroupById(@PathVariable int id) {
+        Group group = groupService.getGroup(id);
+        return group;
+    }
+
+    @PostMapping("/groups")
+    public Group addNewGroup(@RequestBody Group group) {
+           groupService.saveGroup(group);
+           return group;
+    }
+
+    @PutMapping("/groups")
+    @Transactional
+    public Group updateGroup(@RequestBody Group group) {
+        groupService.saveGroup(group);
+        return group;
+    }
+
+    @DeleteMapping("/groups/{id}")
+    @Transactional
+    public String deleteGroup(@PathVariable int id) {
+        groupService.deleteGroup(id);
+        return "Group with ID = " +id + " was deleted";
+    }
+
+
+    //STUDENTS
+    @GetMapping("/student")
+    public List<Student> showAllStudents(){
+        List<Student> studentList = studentService.getAllStudent();
+        return studentList;
+    }
+
+    @GetMapping("/student/{id}")
+    public Student getStudent(@PathVariable int id) {
+        Student student = studentService.getStudentById(id);
+        return student;
+    }
+
+    @PostMapping("/student")
+    public Student addNewStudent(@RequestBody Student student) {
+        studentService.saveStudent(student);
+        return student;
+    }
+
+    @PutMapping("/student")
+    public Student updateStudent(@RequestBody Student student) {
+        studentService.saveStudent(student);
+        return student;
+    }
+
+    @DeleteMapping("/student/{id}")
+    public String deleteStudent(@PathVariable int id) {
+        studentService.deleteStudent(id);
+        return "Student with "+ id+ " was deleted";
+    }
 }

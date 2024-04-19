@@ -1,4 +1,4 @@
-package com.example.springboot_rest.service;
+package com.example.springboot_rest.service.interfaces;
 
 import com.example.springboot_rest.entity.Employee;
 
