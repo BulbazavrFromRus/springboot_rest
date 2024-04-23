@@ -7,6 +7,7 @@ import com.example.springboot_rest.service.interfaces.GroupService;
 import com.example.springboot_rest.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,14 @@ public class MyController {
 
     @Autowired
     private StudentService studentService;
+
+
+    //HOME PAGE
+    @GetMapping("/")
+    public String home(Model model){
+        model.addAttribute("title", "Main page");
+        return "gora";
+    }
 
 
     //EMPLOYEE
@@ -98,33 +107,39 @@ public class MyController {
         return "Group with ID = " +id + " was deleted";
     }
 
+    @DeleteMapping("/groups/name/{name}")
+    @Transactional
+    public String deleteGroupByName(@PathVariable String name){
+          groupService.deleteGroupByName(name);
+          return "Group with name = " +name + " was deleted";
+    }
 
     //STUDENTS
-    @GetMapping("/student")
+    @GetMapping("/students")
     public List<Student> showAllStudents(){
         List<Student> studentList = studentService.getAllStudent();
         return studentList;
     }
 
-    @GetMapping("/student/{id}")
+    @GetMapping("/students/{id}")
     public Student getStudent(@PathVariable int id) {
         Student student = studentService.getStudentById(id);
         return student;
     }
 
-    @PostMapping("/student")
+    @PostMapping("/students")
     public Student addNewStudent(@RequestBody Student student) {
         studentService.saveStudent(student);
         return student;
     }
 
-    @PutMapping("/student")
+    @PutMapping("/students")
     public Student updateStudent(@RequestBody Student student) {
         studentService.saveStudent(student);
         return student;
     }
 
-    @DeleteMapping("/student/{id}")
+    @DeleteMapping("/students/{id}")
     public String deleteStudent(@PathVariable int id) {
         studentService.deleteStudent(id);
         return "Student with "+ id+ " was deleted";

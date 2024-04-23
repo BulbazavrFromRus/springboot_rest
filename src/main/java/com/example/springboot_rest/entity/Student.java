@@ -1,12 +1,13 @@
 package com.example.springboot_rest.entity;
 
+import com.example.springboot_rest.entity.Group;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
 @Table(name="students")
-public class Student{
+public class Student {
 
     @Id
     @Column(name="id")
@@ -22,18 +23,19 @@ public class Student{
     @Column(name="middle_name")
     private String middleName;
 
-    @Column(name="group_id")
-    private long foreignGroupId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="group_id")
+    private Group group;
 
     @Column(name="status")
     private String status;
 
-    public Student(long id, String name, String lastName, String middleName, long foreignGroupId, String status) {
+    public Student(long id, String name, String lastName, String middleName, Group group, String status) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.foreignGroupId = foreignGroupId;
+        this.group = group;
         this.status = status;
     }
 
@@ -41,7 +43,7 @@ public class Student{
         this.name = name;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.foreignGroupId = foreignGroupId;
+        this.group = group;
         this.status = status;
     }
 
@@ -80,14 +82,6 @@ public class Student{
         this.middleName = middleName;
     }
 
-    public long getForeignGroupId() {
-        return foreignGroupId;
-    }
-
-    public void setForeignGroupId(long foreignGroupId) {
-        this.foreignGroupId = foreignGroupId;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -96,17 +90,25 @@ public class Student{
         this.status = status;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id && foreignGroupId == student.foreignGroupId && Objects.equals(name, student.name) && Objects.equals(lastName, student.lastName) && Objects.equals(middleName, student.middleName);
+        return id == student.id && group == student.group && Objects.equals(name, student.name) && Objects.equals(lastName, student.lastName) && Objects.equals(middleName, student.middleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName, middleName, foreignGroupId);
+        return Objects.hash(id, name, lastName, middleName, group);
     }
 
     @Override
@@ -116,7 +118,7 @@ public class Student{
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
-                ", foreignGroupId=" + foreignGroupId +
+                //", foreignGroupId=" + group +
                 ", status="+ status+
                 '}';
     }

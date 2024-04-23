@@ -9,5 +9,6 @@ public interface GroupService {
     public void saveGroup(Group group);
     public Group getGroup(int id);
     public void deleteGroup(int id);
+    public void deleteGroupByName(String name);
 
 }

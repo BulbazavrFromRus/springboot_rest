@@ -2,6 +2,7 @@ package com.example.springboot_rest.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity()
@@ -14,6 +15,9 @@ public class Group{
 
     @Column(name="group_name")
     private String groupName;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "group")
+    private List<Student> students;
 
     public Group(long id, String groupName) {
         this.id = id;
@@ -44,6 +48,22 @@ public class Group{
         this.groupName = groupName;
     }
 
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,4 +76,6 @@ public class Group{
     public int hashCode() {
         return Objects.hash(id, groupName);
     }
+
+
 }

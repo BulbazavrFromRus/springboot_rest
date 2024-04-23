@@ -17,6 +17,8 @@ public class Tutor {
     @Column(name="tutor_name")
     private String nameTutor;
 
+
+
     public Tutor(long id, String nameTutor) {
         this.id = id;
         this.nameTutor = nameTutor;
