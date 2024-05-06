@@ -1,10 +1,13 @@
 package com.example.springboot_rest.controller;
+import com.example.springboot_rest.dao.TutorRepository;
 import com.example.springboot_rest.entity.Employee;
 import com.example.springboot_rest.entity.Group;
 import com.example.springboot_rest.entity.Student;
+import com.example.springboot_rest.entity.Tutor;
 import com.example.springboot_rest.service.interfaces.EmployeeService;
 import com.example.springboot_rest.service.interfaces.GroupService;
 import com.example.springboot_rest.service.interfaces.StudentService;
+import com.example.springboot_rest.service.interfaces.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -26,7 +29,9 @@ public class MyController {
     private StudentService studentService;
 
     @Autowired
-    private
+    private TutorService tutorService;
+    @Autowired
+    private TutorRepository tutorRepository;
 
 
     //HOME PAGE
@@ -149,5 +154,35 @@ public class MyController {
     }
 
     //Tutor
+    @GetMapping("/tutors")
+    public List<Tutor> showAllTutors(){
+       return tutorService.getAllTutors();
+    }
+
+    @GetMapping("/tutors/{id}")
+    public Tutor getTutorById(@PathVariable int id) {
+        Tutor tutor = tutorService.getTutorById(id);
+        return tutor;
+    }
+
+    @PostMapping("/tutors")
+    public Tutor addNewTutor(@RequestBody Tutor tutor) {
+       return tutorService.saveTutor(tutor);
+    }
+
+    @PutMapping("/tutors")
+    public Tutor updateTutor(@RequestBody Tutor tutor) {
+        return tutorService.saveTutor(tutor);
+    }
+
+    @DeleteMapping("tutors/{id}")
+    public String deleteTutor(@PathVariable int id) {
+        tutorService.deleteTutor(id);
+       return  "Tutor with ID = " +id + " was deleted";
+    }
+
+    //LESSON
+
+
 
 }
