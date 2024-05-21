@@ -14,22 +14,23 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="date")
+    @Column(name="lesson_name")
+    private String name;
+
+
+    @Column(name="lesson_date")
     private LocalDate date;
 
-    @Column(name="group_id ")
-    private Long foreignGroupStudentId;
 
     @Column(name="tutor_id")
     private Long foreignTutorId;
 
 
-    public Lesson(Long id, LocalDate date, Long foreignGroupStudentId, Long foreignTutorId) {
+    public Lesson(Long id,String name,  LocalDate date, Long foreignTutorId) {
         this.id = id;
         this.date = date;
-        this.foreignGroupStudentId = foreignGroupStudentId;
         this.foreignTutorId = foreignTutorId;
-
+        this.name=name;
     }
 
     public Lesson() {
@@ -43,6 +44,14 @@ public class Lesson {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public LocalDate getDate() {
         return date;
     }
@@ -51,13 +60,6 @@ public class Lesson {
         this.date = date;
     }
 
-    public Long getForeignGroupStudentId() {
-        return foreignGroupStudentId;
-    }
-
-    public void setForeignGroupStudentId(Long foreignGroupStudentId) {
-        this.foreignGroupStudentId = foreignGroupStudentId;
-    }
 
     public Long getForeignTutorId() {
         return foreignTutorId;
@@ -72,20 +74,20 @@ public class Lesson {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lesson lesson = (Lesson) o;
-        return Objects.equals(id, lesson.id) && Objects.equals(date, lesson.date) && Objects.equals(foreignGroupStudentId, lesson.foreignGroupStudentId) && Objects.equals(foreignTutorId, lesson.foreignTutorId);
+        return Objects.equals(id, lesson.id) && Objects.equals(name, lesson.name) && Objects.equals(date, lesson.date) && Objects.equals(foreignTutorId, lesson.foreignTutorId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, foreignGroupStudentId, foreignTutorId);
+        return Objects.hash(id, name, date, foreignTutorId);
     }
 
     @Override
     public String toString() {
         return "Lesson{" +
                 "id=" + id +
+                "name" + name +
                 ", date=" + date +
-                ", foreignGroupStudentId=" + foreignGroupStudentId +
                 ", foreignTutorId=" + foreignTutorId +
                 '}';
     }

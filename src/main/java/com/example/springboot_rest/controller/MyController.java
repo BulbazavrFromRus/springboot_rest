@@ -1,13 +1,7 @@
 package com.example.springboot_rest.controller;
 import com.example.springboot_rest.dao.TutorRepository;
-import com.example.springboot_rest.entity.Employee;
-import com.example.springboot_rest.entity.Group;
-import com.example.springboot_rest.entity.Student;
-import com.example.springboot_rest.entity.Tutor;
-import com.example.springboot_rest.service.interfaces.EmployeeService;
-import com.example.springboot_rest.service.interfaces.GroupService;
-import com.example.springboot_rest.service.interfaces.StudentService;
-import com.example.springboot_rest.service.interfaces.TutorService;
+import com.example.springboot_rest.entity.*;
+import com.example.springboot_rest.service.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -30,8 +24,9 @@ public class MyController {
 
     @Autowired
     private TutorService tutorService;
+
     @Autowired
-    private TutorRepository tutorRepository;
+    private LessonService lessonService;
 
 
     //HOME PAGE
@@ -175,14 +170,39 @@ public class MyController {
         return tutorService.saveTutor(tutor);
     }
 
-    @DeleteMapping("tutors/{id}")
+    @DeleteMapping("/tutors/{id}")
     public String deleteTutor(@PathVariable int id) {
         tutorService.deleteTutor(id);
        return  "Tutor with ID = " +id + " was deleted";
     }
 
     //LESSON
+    @GetMapping("/lessons")
+    public List<Lesson> showAllLessons(){
+        return lessonService.getAllLessons();
+    }
 
+    @GetMapping("/lessons/{id}")
+    public Lesson getLessonById(@PathVariable long id) {
+        Lesson lesson = lessonService.getLessonById(id);
+        return lesson;
+    }
+
+    @PostMapping("/lessons")
+    public void addNewTutor(@RequestBody Lesson lesson) {
+         lessonService.saveLesson(lesson);
+    }
+
+    @PutMapping("/lessons")
+    public void updateTutor(@RequestBody Lesson lesson) {
+         lessonService.saveLesson(lesson);
+    }
+
+    @DeleteMapping("/lessons/{id}")
+    public String deleteLesson(@PathVariable long id) {
+        lessonService.deleteLesson(id);
+        return  "Lesson with ID = " +id + " was deleted";
+    }
 
 
 }
