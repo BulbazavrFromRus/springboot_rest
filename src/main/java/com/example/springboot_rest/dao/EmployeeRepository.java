@@ -1,6 +1,7 @@
 package com.example.springboot_rest.dao;
 
 import com.example.springboot_rest.entity.Employee;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

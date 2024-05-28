@@ -1,6 +1,7 @@
 package com.example.springboot_rest.entity;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 import java.util.Objects;
@@ -8,6 +9,7 @@ import java.util.Objects;
 @Entity()
 @Table(name="groups")
 public class Group{
+
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +18,7 @@ public class Group{
     @Column(name="group_name")
     private String groupName;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "group")
+    @OneToMany(mappedBy = "group")
     private List<Student> students;
 
     public Group(long id, String groupName) {
