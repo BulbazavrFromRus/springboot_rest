@@ -23,15 +23,20 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
+
+    //this method helps to extract single claim 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
     public String generateToken(UserDetails userDetails){
+
         return generateToken(new HashMap<>(), userDetails);
     }
 
+    //we are going to extract all claims
+    //claims are the individual pieces of information about abject like password, username etc.
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
